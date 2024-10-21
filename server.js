@@ -1,27 +1,39 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); // Impor jwt
-const sequelize = require('./config/database');
-const User = require('./models/user');
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken"); // Impor jwt
+const sequelize = require("./config/database");
+const User = require("./models/user");
+const { generateToken, verifyToken } = require("./middleware/auth");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static("public"));
 
-// Secret key untuk JWT
-const JWT_SECRET = 'joni'; // Gantilah dengan secret yang lebih kuat dan aman
+app.enable("trust proxy");
+app.set("json spaces", 2);
 
 // Sinkronisasi model dengan database
-sequelize.sync()
-  .then(() => console.log('Database tersinkronisasi'))
-  .catch(err => console.error('Gagal sinkronisasi database:', err));
+sequelize
+  .sync()
+  .then(() => console.log("Database tersinkronisasi"))
+  .catch((err) => console.error("Gagal sinkronisasi database:", err));
 
 // API untuk menambahkan pengguna
-app.post('/api/users', async (req, res) => {
-  const { username, nama, email, password, history } = req.body;
+app.post("/api/register", async (req, res) => {
+  const { username, nama, email, password } = req.body;
   console.log(req.body);
-  if (!username || !nama || !email || !password || !history) {
-    return res.status(400).json({ message: 'Data tidak lengkap' });
+  if (!username) {
+    return res.status(400).json({ message: "Masukkan username" });
+  }
+  if (!nama) {
+    return res.status(400).json({ message: "Masukkan nama" });
+  }
+  if (!email) {
+    return res.status(400).json({ message: "Masukkan email" });
+  }
+  if (!password) {
+    return res.status(400).json({ message: "Masukkan password" });
   }
 
   try {
@@ -34,11 +46,11 @@ app.post('/api/users', async (req, res) => {
       nama,
       email,
       password: hashedPassword,
-      history,
+      history: [],
     });
 
     res.status(201).json({
-      message: 'Pengguna berhasil ditambahkan',
+      message: "Pengguna berhasil ditambahkan",
       user: {
         username: newUser.username,
         nama: newUser.nama,
@@ -47,16 +59,25 @@ app.post('/api/users', async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json({ message: 'Gagal menambahkan pengguna', error: err.message });
+    res
+      .status(500)
+      .json({ message: "Gagal menambahkan pengguna", error: err.message });
   }
 });
 
 // API untuk login
-app.post('/api/login', async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username dan password harus diisi' });
+  if (!username) {
+    return res
+      .status(400)
+      .json({ message: "Masukkan username" });
+  }
+  if (!password) {
+    return res
+      .status(400)
+      .json({ message: "Masukkan password" });
   }
 
   try {
@@ -68,23 +89,21 @@ app.post('/api/login', async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Pengguna tidak ditemukan' });
+      return res.status(404).json({ message: "Pengguna tidak ditemukan" });
     }
 
     // Memverifikasi password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Password salah' });
+      return res.status(401).json({ message: "Password salah" });
     }
 
     // Membuat token JWT
-    const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, {
-      expiresIn: '1h', // Token akan kedaluwarsa dalam 1 jam
-    });
+    const token = generateToken(user.id);
 
     // Mengembalikan respons sukses jika login berhasil
     res.json({
-      message: 'Login berhasil',
+      message: "Login berhasil",
       user: {
         username: user.username,
         nama: user.nama,
@@ -94,44 +113,23 @@ app.post('/api/login', async (req, res) => {
       token, // Sertakan token dalam respons
     });
   } catch (err) {
-    res.status(500).json({ message: 'Gagal login', error: err.message });
+    res.status(500).json({ message: "Gagal login", error: err.message });
   }
 });
 
 // API untuk mengambil semua pengguna (diperlukan otentikasi)
-app.get('/api/users', async (req, res) => {
+app.get("/api/listuser", verifyToken, async (req, res) => {
   try {
     const users = await User.findAll();
-    res.json(users);
+    const list = users.map((user) => {
+      const { password, ...userWithoutPassword } = user.dataValues;
+      return userWithoutPassword;
+    });
+    res.json(list);
   } catch (err) {
-    res.status(500).json({ message: 'Gagal mengambil data pengguna', error: err.message });
-  }
-});
-
-// Middleware untuk memverifikasi token
-const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization'];
-
-  if (!token) {
-    return res.status(403).json({ message: 'Token tidak disediakan' });
-  }
-
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Token tidak valid' });
-    }
-    req.userId = decoded.id;
-    next();
-  });
-};
-
-// Gunakan middleware untuk endpoint yang memerlukan otentikasi
-app.get('/api/users', verifyToken, async (req, res) => {
-  try {
-    const users = await User.findAll();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: 'Gagal mengambil data pengguna', error: err.message });
+    res
+      .status(500)
+      .json({ message: "Gagal mengambil data pengguna", error: err.message });
   }
 });
 

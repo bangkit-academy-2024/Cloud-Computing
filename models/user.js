@@ -22,7 +22,7 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   history: {
-    type: DataTypes.STRING,
+    type: DataTypes.JSON,
     allowNull: false,
   },
 }, {
