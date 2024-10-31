@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-// Definisikan model User
 const User = sequelize.define('User', {
   username: {
     type: DataTypes.STRING,
@@ -26,7 +25,6 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
 }, {
-  // Opsi lain
   tableName: 'users',
 });
 

@@ -1,7 +1,6 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-// This function generates a JWT token for a given user ID
 function generateToken(userId) {
   const payload = {
     user: {
@@ -16,20 +15,20 @@ function generateToken(userId) {
   return jwt.sign(payload, secret, options);
 }
 
-// This middleware function verifies that the request has a valid JWT token
+// eslint-disable-next-line consistent-return
 function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).send("Unauthorized");
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).send('Unauthorized');
   }
-  const token = authHeader.substring("Bearer ".length);
+  const token = authHeader.substring('Bearer '.length);
   const secret = process.env.JWT_SECRET;
   try {
     const decoded = jwt.verify(token, secret);
     req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).send("Unauthorized");
+    return res.status(401).send('Unauthorized');
   }
 }
 
