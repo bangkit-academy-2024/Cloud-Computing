@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 require('dotenv').config();
@@ -17,6 +18,10 @@ app.use(express.static('public'));
 app.enable('trust proxy');
 app.set('json spaces', 2);
 
+app.set('views', './view');
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'view')));
+
 sequelize
   .sync()
   .then(() => console.log('Database tersinkronisasi'))
@@ -24,6 +29,10 @@ sequelize
 
 app.get('/', (req, res) => {
   res.redirect('/api');
+});
+
+app.get('/chat', (req, res) => {
+  res.render('chat');
 });
 
 /**

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Bot - EpiAlert</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="user-info">
+                <img src="https://avatars.githubusercontent.com/u/185240787?s=200&v=4" alt="User Avatar" class="avatar">
+                <div class="user-details">
+                    <h2>EpiAlert Bot</h2>
+                    <p id="status">Online</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="chat-footer">
+            <input type="file" id="media-input" accept="image/*" style="display: none;" onchange="previewMedia()">
+            <button class="attach-btn" onclick="document.getElementById('media-input').click()">📎</button>
+            <div class="input-container">
+                <input type="text" 
+                       id="chat-input" 
+                       placeholder="Type a message" 
+                       oninput="checkInput()" 
+                       onkeypress="handleKeyPress(event)">
+                <div class="media-preview" id="media-preview" style="display: none;">
+                    <img id="preview-img" src="" alt="Preview">
+                    <button class="close-preview" onclick="cancelMedia()">✕</button>
+                </div>
+            </div>
+            <button class="send-btn" 
+                    id="send-btn" 
+                    onclick="handleSendClick()" 
+                    disabled>Send</button>
+        </div>
+    </div>
+    
+    <script>
+        function handleSendClick() {
+            const chatInput = document.getElementById('chat-input');
+            const messageText = chatInput.value.trim();
+            
+            if (messageText) {
+                sendMessage();
+                chatInput.value = ''; // Clear input after sending
+                document.getElementById('send-btn').disabled = true;
+            }
+        }
+
+        // Update original event listener
+        document.getElementById('chat-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                handleSendClick();
+            }
+        });
+    </script>
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>
