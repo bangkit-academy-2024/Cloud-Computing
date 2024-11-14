@@ -8,6 +8,7 @@ const dbname = process.env.DB_NAME || 'capstone';
 const sequelize = new Sequelize(dbname, username, password, {
   host: 'localhost',
   dialect: 'mysql',
+  logging: false,
 });
 
 module.exports = sequelize;

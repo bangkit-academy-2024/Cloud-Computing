@@ -84,6 +84,17 @@ app.get('/', (req, res) => {
  *       500:
  *         description: Gagal login
  *
+ * /api/user:
+ *   get:
+ *     tags:
+ *       - Auth
+ *     summary: Get User
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: ok
+ *
  * /api/listuser:
  *   get:
  *     tags:
@@ -103,16 +114,16 @@ app.post('/api/register', async (req, res) => {
   } = req.body;
   console.log(req.body);
   if (!username) {
-    return res.status(400).json({ message: 'Masukkan username' });
+    return res.status(400).json({ status: false, message: 'Masukkan username' });
   }
   if (!nama) {
-    return res.status(400).json({ message: 'Masukkan nama' });
+    return res.status(400).json({ status: false, message: 'Masukkan nama' });
   }
   if (!email) {
-    return res.status(400).json({ message: 'Masukkan email' });
+    return res.status(400).json({ status: false, message: 'Masukkan email' });
   }
   if (!password) {
-    return res.status(400).json({ message: 'Masukkan password' });
+    return res.status(400).json({ status: false, message: 'Masukkan password' });
   }
 
   try {
@@ -127,6 +138,7 @@ app.post('/api/register', async (req, res) => {
     });
 
     res.status(201).json({
+      status: true,
       message: 'Pengguna berhasil ditambahkan',
       user: {
         username: newUser.username,
@@ -138,7 +150,7 @@ app.post('/api/register', async (req, res) => {
   } catch (err) {
     res
       .status(500)
-      .json({ message: 'Gagal menambahkan pengguna', error: err.message });
+      .json({ status: false, message: 'Gagal menambahkan pengguna' });
   }
 });
 
@@ -149,12 +161,12 @@ app.post('/api/login', async (req, res) => {
   if (!account) {
     return res
       .status(400)
-      .json({ message: 'Masukkan username atau email' });
+      .json({ status: false, message: 'Masukkan username atau email' });
   }
   if (!password) {
     return res
       .status(400)
-      .json({ message: 'Masukkan password' });
+      .json({ status: false, message: 'Masukkan password' });
   }
 
   try {
@@ -168,28 +180,57 @@ app.post('/api/login', async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Pengguna tidak ditemukan' });
+      return res.status(404).json({ status: false, message: 'Pengguna tidak ditemukan' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Password salah' });
+      return res.status(401).json({ status: false, message: 'Password salah' });
     }
 
     const token = generateToken(user.id);
 
     res.status(201).json({
+      status: true,
       message: 'Login berhasil',
+      token,
       user: {
         username: user.username,
         nama: user.nama,
         email: user.email,
-        history: user.history,
+        history: JSON.parse(user.history),
       },
-      token,
     });
   } catch (err) {
     res.status(500).json({ message: 'Gagal login', error: err.message });
+  }
+});
+
+app.get('/api/user', verifyToken, async (req, res) => {
+  console.log(req.user);
+  try {
+    const data = req.user;
+    const user = await User.findOne({
+      where: {
+        id: data.user.id,
+      },
+    });
+    res.status(201).json({
+      status: true,
+      user: {
+        username: user.username,
+        nama: user.nama,
+        email: user.email,
+        password: user.password,
+        history: JSON.parse(user.history),
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: false, message: 'Gagal mengambil data pengguna', error: err.message });
   }
 });
 
@@ -197,14 +238,16 @@ app.get('/api/listuser', verifyToken, async (req, res) => {
   try {
     const users = await User.findAll();
     const list = users.map((user) => {
-      const { password, ...userWithoutPassword } = user.dataValues;
-      return userWithoutPassword;
+      const {
+        id, password, history, ...userData
+      } = user.dataValues;
+      return userData;
     });
-    res.status(201).json(list);
+    res.status(201).json({ status: true, list });
   } catch (err) {
     res
       .status(500)
-      .json({ message: 'Gagal mengambil data pengguna', error: err.message });
+      .json({ status: false, message: 'Gagal mengambil data pengguna', error: err.message });
   }
 });
 
