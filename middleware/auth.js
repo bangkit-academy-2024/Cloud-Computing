@@ -32,7 +32,24 @@ function verifyToken(req, res, next) {
   }
 }
 
+// eslint-disable-next-line consistent-return
+async function authMiddleware(req, res, next) {
+  const { curdToken } = req.cookies;
+  if (curdToken) {
+    try {
+      const deCodeToken = await jwt.verify(curdToken, process.env.JWT_SECRET);
+      req.userInfo = deCodeToken;
+      next();
+    } catch {
+      return res.redirect('/login');
+    }
+  } else {
+    return res.redirect('/login');
+  }
+}
+
 module.exports = {
   generateToken,
   verifyToken,
+  authMiddleware,
 };

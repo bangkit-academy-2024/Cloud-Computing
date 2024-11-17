@@ -2,18 +2,21 @@ const express = require('express');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const sequelize = require('./config/database');
 const User = require('./models/user');
 const { generateToken, verifyToken } = require('./middleware/auth');
 const swagger = require('./swagger');
+const root = require('./routes/root');
 const feuture = require('./routes/feature');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
+app.use(cookieParser());
 
 app.enable('trust proxy');
 app.set('json spaces', 2);
@@ -26,14 +29,6 @@ sequelize
   .sync()
   .then(() => console.log('Database tersinkronisasi'))
   .catch((err) => console.error('Gagal sinkronisasi database:', err));
-
-app.get('/', (req, res) => {
-  res.redirect('/api');
-});
-
-app.get('/chat', (req, res) => {
-  res.render('chat');
-});
 
 /**
  * @swagger
@@ -216,7 +211,6 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.get('/api/user', verifyToken, async (req, res) => {
-  console.log(req.user);
   try {
     const data = req.user;
     const user = await User.findOne({
@@ -260,6 +254,7 @@ app.get('/api/listuser', verifyToken, async (req, res) => {
   }
 });
 
+app.use('/', root);
 app.use('/api', feuture);
 swagger(app);
 
