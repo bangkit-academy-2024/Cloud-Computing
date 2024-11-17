@@ -21,7 +21,7 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   history: {
-    type: DataTypes.JSON,
+    type: DataTypes.TEXT('long'),
     allowNull: false,
   },
 }, {
