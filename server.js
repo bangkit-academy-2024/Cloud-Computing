@@ -98,6 +98,15 @@ sequelize
  *     responses:
  *       200:
  *         description: ok
+ *   delete:
+ *     tags:
+ *       - Auth
+ *     summary: Delete User
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: ok
  *
  * /api/listuser:
  *   get:
@@ -125,8 +134,14 @@ app.post('/api/register', async (req, res) => {
   if (!email) {
     return res.status(400).json({ status: false, message: 'Masukkan email' });
   }
+  if (!email.includes('@gmail')) {
+    return res.status(400).json({ status: false, message: 'Harap pakai Gmail' });
+  }
   if (!password) {
     return res.status(400).json({ status: false, message: 'Masukkan password' });
+  }
+  if (password.length < 6) {
+    return res.status(400).json({ status: false, message: 'Kata sandi minimal harus 6 karakter' });
   }
 
   try {
@@ -228,6 +243,26 @@ app.get('/api/user', verifyToken, async (req, res) => {
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       },
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: false, message: 'Gagal mengambil data pengguna', error: err.message });
+  }
+});
+
+app.delete('/api/user', verifyToken, async (req, res) => {
+  try {
+    const data = req.user;
+    const user = await User.destroy({
+      where: {
+        id: data.user.id,
+      },
+    });
+    console.log(user);
+    res.status(201).json({
+      status: true,
+      message: 'Pengguna berhasil di hapus',
     });
   } catch (err) {
     res

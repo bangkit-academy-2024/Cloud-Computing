@@ -42,7 +42,6 @@ const optionstheme = {
   ],
 };
 
-
 module.exports = (app) => {
   app.use('/api', swaggerUi.serve, swaggerUi.setup(specs, optionstheme));
 };
