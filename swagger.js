@@ -34,15 +34,14 @@ const specs = swaggerJsdoc(options);
 const optionstheme = {
   // customCss: theme,
   customJs: [
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
+    'https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js',
+    'https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js',
   ],
   customCssUrl: [
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css',
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
+    '/assets/css/swagger-light.css',
   ],
 };
+
 
 module.exports = (app) => {
   app.use('/api', swaggerUi.serve, swaggerUi.setup(specs, optionstheme));

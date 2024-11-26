@@ -116,7 +116,6 @@ app.post('/api/register', async (req, res) => {
   const {
     username, nama, email, password,
   } = req.body;
-  console.log(req.body);
   if (!username) {
     return res.status(400).json({ status: false, message: 'Masukkan username' });
   }
@@ -138,7 +137,7 @@ app.post('/api/register', async (req, res) => {
       nama,
       email,
       password: hashedPassword,
-      history: [],
+      history: '[]',
     });
 
     res.status(201).json({
