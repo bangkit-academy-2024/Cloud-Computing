@@ -10,8 +10,8 @@ const router = express.Router();
  * /api/notif:
  *   post:
  *     tags:
- *       - Feuture
- *     summary: Whatsapp Notif
+ *       - Feature
+ *     summary: Kirim Notifikasi WhatsApp
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -22,22 +22,57 @@ const router = express.Router();
  *             type: object
  *             properties:
  *               nomor:
- *                 type: String
+ *                 type: string
  *                 example: "ex. 62895411954396"
  *               pesan:
- *                 type: String
+ *                 type: string
  *                 example: "Detail penyakit anda cacar air.."
  *     responses:
- *       201:
- *         description: "Success"
+ *       200:
+ *         description: "Notifikasi berhasil dikirim"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   example: {"message": "Notifikasi berhasil dikirim"}
+ *       400:
+ *         description: "Nomor telepon tidak valid"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Start with your country's WhatsApp code, Example : 62xxx"
  *       500:
- *         description: "Gagal mengirim notif"
+ *         description: "Gagal mengirim notifikasi"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Gagal mengirim notif"
  *
  * /api/ai:
  *   post:
  *     tags:
- *       - Feuture
- *     summary: Chatgpt Penyakit
+ *       - Feature
+ *     summary: Chat dengan AI tentang Penyakit
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -48,16 +83,38 @@ const router = express.Router();
  *             type: object
  *             properties:
  *               pesan:
- *                 type: String
+ *                 type: string
  *                 example: "Apa obat yang cocok untuk saya"
  *               penyakit:
- *                 type: String
+ *                 type: string
  *                 example: "Cacar air"
  *     responses:
  *       201:
- *         description: "true"
+ *         description: "Respons dari AI"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Berikut adalah saran obat untuk cacar air..."
  *       500:
- *         description: "false"
+ *         description: "Terjadi kesalahan dalam mendapatkan respons"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Terjadi kesalahan dalam mendapatkan respons."
  */
 
 router.post('/notif', verifyToken, async (req, res) => {

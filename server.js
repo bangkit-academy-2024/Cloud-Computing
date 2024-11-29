@@ -11,6 +11,7 @@ const { generateToken, verifyToken } = require('./middleware/auth');
 const swagger = require('./swagger');
 const root = require('./routes/root');
 const feuture = require('./routes/feature');
+const disease = require('./routes/disease');
 
 const app = express();
 app.use(express.json());
@@ -48,7 +49,7 @@ sequelize
  *               username:
  *                 type: String
  *                 example: "budihermawanto"
- *               nama:
+ *               name:
  *                 type: String
  *                 example: "Budi Hermawanto"
  *               email:
@@ -123,13 +124,13 @@ sequelize
 // eslint-disable-next-line consistent-return
 app.post('/api/register', async (req, res) => {
   const {
-    username, nama, email, password,
+    username, name, email, password,
   } = req.body;
   if (!username) {
     return res.status(400).json({ status: false, message: 'Masukkan username' });
   }
-  if (!nama) {
-    return res.status(400).json({ status: false, message: 'Masukkan nama' });
+  if (!name) {
+    return res.status(400).json({ status: false, message: 'Masukkan name' });
   }
   if (!email) {
     return res.status(400).json({ status: false, message: 'Masukkan email' });
@@ -149,7 +150,7 @@ app.post('/api/register', async (req, res) => {
 
     const newUser = await User.create({
       username,
-      nama,
+      name,
       email,
       password: hashedPassword,
       history: '[]',
@@ -160,7 +161,7 @@ app.post('/api/register', async (req, res) => {
       message: 'Pengguna berhasil ditambahkan',
       user: {
         username: newUser.username,
-        nama: newUser.nama,
+        name: newUser.name,
         email: newUser.email,
         history: newUser.history,
       },
@@ -214,7 +215,7 @@ app.post('/api/login', async (req, res) => {
       token,
       user: {
         username: user.username,
-        nama: user.nama,
+        name: user.name,
         email: user.email,
         history: JSON.parse(user.history),
       },
@@ -236,7 +237,7 @@ app.get('/api/user', verifyToken, async (req, res) => {
       status: true,
       user: {
         username: user.username,
-        nama: user.nama,
+        name: user.name,
         email: user.email,
         password: user.password,
         history: JSON.parse(user.history),
@@ -290,6 +291,7 @@ app.get('/api/listuser', verifyToken, async (req, res) => {
 
 app.use('/', root);
 app.use('/api', feuture);
+app.use('/api', disease);
 swagger(app);
 
 app.use('*', (req, res) => res.status(404).json({

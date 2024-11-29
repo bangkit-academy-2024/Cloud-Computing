@@ -162,7 +162,7 @@
 
                 if (data.status) {
                     // Jika login berhasil, simpan token ke dalam cookie
-                    document.cookie = `curdToken=${data.token}; path=/;`; // Simpan cookie dengan nama "token"
+                    document.cookie = `curdToken=${data.token}; path=/;`; // Simpan cookie dengan name "token"
                     // alert(data.message); // Tampilkan pesan berhasil
                     const Toast = Swal.mixin({
                         toast: true,
