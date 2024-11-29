@@ -1,5 +1,5 @@
 const express = require('express');
-// const axios = require('axios');
+const axios = require('axios');
 const { authMiddleware } = require('../middleware/auth');
 
 const router = express.Router();
@@ -45,15 +45,13 @@ router.get('/profile', authMiddleware, async (req, res) => {
   const url = `${req.protocol}://${req.get('host')}/api/user`;
   const token = `Bearer ${curdToken}`;
 
-  const response = await fetch(url, {
-    method: 'GET',
+  const response = await axios.get(url, {
     headers: {
       Accept: '*/*',
       Authorization: token,
     },
   });
-  const data = await response.json();
-  const bio = data.user;
+  const bio = response.data.user;
   return res.render('profile', { bio });
 });
 
