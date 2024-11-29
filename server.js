@@ -47,23 +47,46 @@ sequelize
  *             type: object
  *             properties:
  *               username:
- *                 type: String
+ *                 type: string
  *                 example: "budihermawanto"
  *               name:
- *                 type: String
+ *                 type: string
  *                 example: "Budi Hermawanto"
  *               email:
- *                 type: String
+ *                 type: string
  *                 example: "budihermawanto@gmail.com"
  *               password:
- *                 type: String
+ *                 type: string
  *                 example: "budi1234"
  *     responses:
  *       201:
  *         description: Pengguna berhasil ditambahkan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     username:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     history:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *       400:
+ *         description: Permintaan tidak valid
  *       500:
  *         description: Gagal menambahkan pengguna
- *
  *
  * /api/login:
  *   post:
@@ -78,14 +101,42 @@ sequelize
  *             type: object
  *             properties:
  *               account:
- *                 type: String
+ *                 type: string
  *                 example: "budihermawanto"
  *               password:
- *                 type: String
+ *                 type: string
  *                 example: "budi1234"
  *     responses:
  *       201:
  *         description: Login berhasil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 token:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     username:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     history:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *       400:
+ *         description: Permintaan tidak valid
+ *       404:
+ *         description: Pengguna tidak ditemukan
  *       500:
  *         description: Gagal login
  *
@@ -98,7 +149,37 @@ sequelize
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: ok
+ *         description: Data pengguna berhasil diambil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     username:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     history:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *       401:
+ *         description: Tidak terautentikasi
+ *       500:
+ *         description: Gagal mengambil data pengguna
  *   delete:
  *     tags:
  *       - Auth
@@ -107,7 +188,20 @@ sequelize
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: ok
+ *         description: Pengguna berhasil dihapus
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       401:
+ *         description: Tidak terautentikasi
+ *       500:
+ *         description: Gagal menghapus pengguna
  *
  * /api/listuser:
  *   get:
@@ -118,7 +212,33 @@ sequelize
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: ok
+ *         description: Daftar pengguna berhasil diambil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                 list:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       username:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                       history:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *       401:
+ *         description: Tidak terautentikasi
+ *       500:
+ *         description: Gagal mengambil daftar pengguna
  */
 
 // eslint-disable-next-line consistent-return
