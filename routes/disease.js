@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const express = require('express');
 const axios = require('axios');
 
@@ -5,12 +6,12 @@ const router = express.Router();
 
 let data = { penyakit: {} };
 axios.get('https://raw.githubusercontent.com/epialert/cdn/refs/heads/master/diseases.json')
-    .then(response => {
-        data = response.data; // Simpan data ke dalam variabel data
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
+  .then((response) => {
+    data = response.data; // Simpan data ke dalam variabel data
+  })
+  .catch((error) => {
+    console.error('Error fetching data:', error);
+  });
 
 /**
  * @swagger
@@ -153,46 +154,46 @@ axios.get('https://raw.githubusercontent.com/epialert/cdn/refs/heads/master/dise
  */
 
 router.get('/penyakit', async (req, res) => {
-    res.status(200).json(data);
+  res.status(200).json(data);
 });
 
 router.get('/penyakit/:namaPenyakit/penjelasan', (req, res) => {
-    const namaPenyakit = req.params.namaPenyakit.toLowerCase();
-    const penyakit = data.penyakit[namaPenyakit];
+  const namaPenyakit = req.params.namaPenyakit.toLowerCase();
+  const penyakit = data.penyakit[namaPenyakit];
 
-    if (penyakit) {
-        res.json({ penjelasan: penyakit.penjelasan });
-    } else {
-        res.status(404).json({ message: 'Penyakit tidak ditemukan' });
-    }
+  if (penyakit) {
+    res.json({ penjelasan: penyakit.penjelasan });
+  } else {
+    res.status(404).json({ message: 'Penyakit tidak ditemukan' });
+  }
 });
 
 router.get('/penyakit/:namaPenyakit/pertanyaan', (req, res) => {
-    const namaPenyakit = req.params.namaPenyakit.toLowerCase();
-    const penyakit = data.penyakit[namaPenyakit];
+  const namaPenyakit = req.params.namaPenyakit.toLowerCase();
+  const penyakit = data.penyakit[namaPenyakit];
 
-    if (penyakit) {
-        res.json({ pertanyaan: penyakit.pertanyaan });
-    } else {
-        res.status(404).json({ message: 'Penyakit tidak ditemukan' });
-    }
+  if (penyakit) {
+    res.json({ pertanyaan: penyakit.pertanyaan });
+  } else {
+    res.status(404).json({ message: 'Penyakit tidak ditemukan' });
+  }
 });
 
 router.get('/penyakit/:namaPenyakit/jawaban/:idJawaban', (req, res) => {
-    const namaPenyakit = req.params.namaPenyakit.toLowerCase();
-    const idJawaban = req.params.idJawaban
-    const penyakit = data.penyakit[namaPenyakit];
+  const namaPenyakit = req.params.namaPenyakit.toLowerCase();
+  const { idJawaban } = req.params;
+  const penyakit = data.penyakit[namaPenyakit];
 
-    if (penyakit) {
-        const jawaban = penyakit.jawaban.find(j => j.id === idJawaban);
-        if (jawaban) {
-            res.json(jawaban);
-        } else {
-            res.status(404).json({ message: 'Jawaban tidak ditemukan' });
-        }
+  if (penyakit) {
+    const jawaban = penyakit.jawaban.find((j) => j.id === idJawaban);
+    if (jawaban) {
+      res.json(jawaban);
     } else {
-        res.status(404).json({ message: 'Penyakit tidak ditemukan' });
+      res.status(404).json({ message: 'Jawaban tidak ditemukan' });
     }
+  } else {
+    res.status(404).json({ message: 'Penyakit tidak ditemukan' });
+  }
 });
 
 module.exports = router;
