@@ -5,7 +5,7 @@ const { authMiddleware } = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.redirect('/api');
+  res.redirect('/docs');
 });
 
 router.get('/register', (req, res) => {

@@ -43,5 +43,5 @@ const optionstheme = {
 };
 
 module.exports = (app) => {
-  app.use('/api', swaggerUi.serve, swaggerUi.setup(specs, optionstheme));
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs, optionstheme));
 };
