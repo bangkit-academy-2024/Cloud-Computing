@@ -5,7 +5,7 @@ const { authMiddleware } = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.redirect('/docs');
+  res.render('index');
 });
 
 router.get('/register', (req, res) => {
@@ -29,15 +29,9 @@ router.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-router.get('/dashboard', authMiddleware, (req, res) => res.status(404).json({
-  status: true,
-  message: 'Anda berhasil login',
-  endpoint: {
-    profile: '/profile',
-    chatbot: '/chat',
-    logout: '/logout',
-  },
-}));
+router.get('/dashboard', authMiddleware, (req, res) => {
+  res.render('dashboard');
+});
 
 router.get('/profile', authMiddleware, async (req, res) => {
   const { curdToken } = req.cookies;

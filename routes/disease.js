@@ -4,14 +4,15 @@ const axios = require('axios');
 
 const router = express.Router();
 
-let data = { penyakit: {} };
-axios.get('https://raw.githubusercontent.com/epialert/cdn/refs/heads/master/diseases.json')
-  .then((response) => {
-    data = response.data; // Simpan data ke dalam variabel data
-  })
-  .catch((error) => {
-    console.error('Error fetching data:', error);
-  });
+async function fetchData() {
+  try {
+    const response = await axios.get('https://raw.githubusercontent.com/epialert/cdn/refs/heads/master/diseases.json');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data...');
+    return { penyakit: {} };
+  }
+}
 
 /**
  * @swagger
@@ -63,6 +64,40 @@ axios.get('https://raw.githubusercontent.com/epialert/cdn/refs/heads/master/dise
  *                     $ref: '#/components/schemas/Disease'
  *       404:
  *         description: "Penyakit tidak ditemukan"
+ *
+ * /api/penyakit/{namaPenyakit}:
+ *   get:
+ *     tags:
+ *       - Disease
+ *     summary: Mendapatkan semua tentang penyakit tertentu
+ *     parameters:
+ *       - name: namaPenyakit
+ *         in: path
+ *         required: true
+ *         description: Nama penyakit yang ingin dicari
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: "Tentang penyakit"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 penjelasan:
+ *                   type: string
+ *                 pertanyaan:
+ *                   type: string
+ *                 jawaban:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       404:
+ *         description: "Penyakit tidak ditemukan"
+ *
  *
  * /api/penyakit/{namaPenyakit}/penjelasan:
  *   get:
@@ -154,10 +189,24 @@ axios.get('https://raw.githubusercontent.com/epialert/cdn/refs/heads/master/dise
  */
 
 router.get('/penyakit', async (req, res) => {
+  const data = await fetchData();
   res.status(200).json(data);
 });
 
-router.get('/penyakit/:namaPenyakit/penjelasan', (req, res) => {
+router.get('/penyakit/:namaPenyakit', async (req, res) => {
+  const data = await fetchData();
+  const namaPenyakit = req.params.namaPenyakit.toLowerCase();
+  const penyakit = data.penyakit[namaPenyakit];
+
+  if (penyakit) {
+    res.json(penyakit);
+  } else {
+    res.status(404).json({ message: 'Penyakit tidak ditemukan' });
+  }
+});
+
+router.get('/penyakit/:namaPenyakit/penjelasan', async (req, res) => {
+  const data = await fetchData();
   const namaPenyakit = req.params.namaPenyakit.toLowerCase();
   const penyakit = data.penyakit[namaPenyakit];
 
@@ -168,7 +217,8 @@ router.get('/penyakit/:namaPenyakit/penjelasan', (req, res) => {
   }
 });
 
-router.get('/penyakit/:namaPenyakit/pertanyaan', (req, res) => {
+router.get('/penyakit/:namaPenyakit/pertanyaan', async (req, res) => {
+  const data = await fetchData();
   const namaPenyakit = req.params.namaPenyakit.toLowerCase();
   const penyakit = data.penyakit[namaPenyakit];
 
@@ -179,7 +229,8 @@ router.get('/penyakit/:namaPenyakit/pertanyaan', (req, res) => {
   }
 });
 
-router.get('/penyakit/:namaPenyakit/jawaban/:idJawaban', (req, res) => {
+router.get('/penyakit/:namaPenyakit/jawaban/:idJawaban', async (req, res) => {
+  const data = await fetchData();
   const namaPenyakit = req.params.namaPenyakit.toLowerCase();
   const { idJawaban } = req.params;
   const penyakit = data.penyakit[namaPenyakit];
