@@ -1,580 +1,334 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" class="h-100">
 
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Website EpiAlert">
+    <meta name="author" content="Muhammad Ilham Abdul Mufid">
 
-  <title>EpiAlert</title>
-  <link href="assets/images/logo.png" rel="icon">
-  <link href="assets/images/logo.png" rel="apple-touch-icon">
+    <!-- Title -->
+    <title>EpiAlert</title>
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
 
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
-  <!-- font awesome style -->
-  <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- nice select -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
-    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
-  <!-- datepicker -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
-  <!-- Custom styles for this template -->
-  <link href="assets/css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="assets/css/responsive.css" rel="stylesheet" />
-  <style>
-    body {
-      background: #ecf0f3;
-    }
-  </style>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
 
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="assets/css/root.css">
 </head>
 
-<body>
-
-  <div class="hero_area">
-    <!-- header section strats -->
-    <header class="header_section">
-      <div class="header_bottom">
-        <div class="container-fluid">
-          <nav class="navbar navbar-expand-sm custom_nav-container">
-            <a class="navbar-brand" href="index.html">
-              <img src="assets/images/logo.png" alt="">
+<body id="home" class="d-flex flex-column h-100">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light py-4 bg-nav">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/logo.png" alt="Epi Alert" width="42" height="42" class="d-inline-block mt--2 me-2">
+                <span class="text-body fs-4 fw-bolder">Epi Alert</span>
             </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class=""> </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
-                
-              </div>
-              <div class="quote_btn-container">
-                <a href="/login">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <span>
-                    Masuk
-                  </span>
-                </a>
-                <a href="/register">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <span>
-                    Daftar
-                  </span>
-                </a>
-              </div>
+            <div class="collapse navbar-collapse py-3 py-lg-1" id="navbarSupportedContent">
+                <!-- Menu -->
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <!-- Social Media -->
+                <div class="d-flex mt-3 ms-3 mt-md-0 ms-md-0">
+                    <button type="button" class="btn btn-primary me-3" onclick="window.location.href='/login';">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"></path>
+                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"></path>
+                        </svg>
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='/register';">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"></path>
+                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"></path>
+                        </svg>
+                        Register
+                    </button>
+                </div>
             </div>
-          </nav>
         </div>
-      </div>
-    </header>
-    <!-- end header section -->
-    <!-- slider section -->
-    <section class="slider_section ">
-      <div class="dot_design">
-        <img src="assets/images/dots.png" alt="">
-      </div>
-      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
+    </nav>
 
-                    <h1>
-                      Epi <br>
-                      <span>
-                        Alert
-                      </span>
-                    </h1>
-                    <p>
-                      EpiAlert menggunakan teknologi machine learning untuk membantu Anda memprediksi dan mendiagnosis
-                      penyakit kulit dengan akurasi tinggi.
-                    </p>
-                    <a href="/login">
-                      Cek Sekarang
-                    </a>
-                  </div>
+    <!-- Main Content -->
+    <main class="flex-shrink-0">
+        <!-- Heroes -->
+        <div class="container col-xxl-8 px-4 py-5">
+            <div class="row flex-lg-row-reverse align-items-center g-5">
+                <div class="col-lg-5">
+                    <img src="assets/img/heroes.png" class="d-block mx-lg-auto img-fluid" alt="Digital Creative" loading="lazy">
                 </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="assets/images/slider-img.png" alt="">
-                  </div>
+                <div class="col-lg-7">
+                    <h1 class="fw-bold lh-2 mb-4">Advanced Solutions for Detecting and Scanning Your Skin Diseases</h1>
+                    <p class="lead mb-5">We use cutting-edge technology to accurately scan and detect skin problems, helping you take better care of your skin health.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="/login" class="btn btn-primary rounded-pill px-4 py-2"><i class="bi bi-search me-2"></i> Let's scan now</a>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-
-                    <h1>
-                      Epi <br>
-                      <span>
-                        Alert
-                      </span>
-                    </h1>
-                    <p>
-                      Dengan EpiAlert, Anda dapat dengan mudah mendapatkan informasi tentang kondisi kulit Anda dan
-                      langkah-langkah yang perlu diambil.
-                    </p>
-                    <a href="/login">
-                      Cek Sekarang
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="assets/images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-
-                    <h1>
-                      Epi <br>
-                      <span>
-                        Alert
-                      </span>
-                    </h1>
-                    <p>
-                      Dapatkan prediksi yang cepat dan akurat untuk berbagai jenis penyakit kulit dengan bantuan
-                      teknologi canggih kami.
-                    </p>
-                    <a href="/login">
-                      Cek Sekarang
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="assets/images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="carousel_btn-box">
-          <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">
-            <img src="assets/images/prev.png" alt="">
-            <span class="sr-only">Sebelumnya</span>
-          </a>
-          <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">
-            <img src="assets/images/next.png" alt="">
-            <span class="sr-only">Selanjutnya</span>
-          </a>
+
+        <!-- Services -->
+        <div id="services" class="container text-center py-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="fw-bold lh-2 mb-3">OUR SERVICES</h3>
+                    <p class="lead">We offer accurate and reliable skin disease scanning solutions, helping you detect skin problems earlier for more effective treatment.</p>
+                </div>
+            </div>
+
+            <div class="row py-4">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="card border-0 rounded-4 shadow-sm">
+                        <div class="card-body p-3 p-sm-5">
+                            <div class="feature-icon-1 bg-primary bg-gradient mb-4">
+                                <i class="bi-upc-scan fs-3"></i>
+                            </div>
+                            <h3>Scanning</h3>
+                            <p>Our advanced scanning technology quickly detects skin issues with high accuracy, helping you take better care of your skin health.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="card border-0 rounded-4 shadow-sm">
+                        <div class="card-body p-3 p-sm-5">
+                            <div class="feature-icon-1 bg-primary bg-gradient mb-4">
+                                <i class="bi-bar-chart-steps fs-3"></i>
+                            </div>
+                            <h3>Prediction</h3>
+                            <p>Through advanced data analysis, we predict potential skin disease risks, providing early insights for effective prevention.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="card border-0 rounded-4 shadow-sm">
+                        <div class="card-body p-3 p-sm-5">
+                            <div class="feature-icon-1 bg-primary bg-gradient mb-4">
+                                <i class="bi-chat-left-dots fs-3"></i>
+                            </div>
+                            <h3>ChatBot</h3>
+                            <p>Our chatbot is always available to answer your skin health queries, offer treatment advice, and provide essential medical information instantly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-    <!-- end slider section -->
-  </div>
 
+        <!-- About -->
+        <div id="about" class="container text-center py-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="fw-bold lh-2 mb-3">ABOUT US</h3>
+                    <p class="lead">We use advanced scanning technology to detect and analyse skin problems, providing the right solutions to keep your skin healthy.</p>
+                </div>
+            </div>
 
-  <!-- about section -->
-
-  <section class="about_section layout_padding">
-    <div class="container  ">
-      <div class="row">
-        <div class="col-md-6 ">
-          <div class="img-box">
-            <img src="assets/images/about-img.png" alt="">
-          </div>
+            <div class="row align-items-center text-start g-5 py-4">
+                <div class="col-lg-5">
+                    <img src="assets/img/about.png" class="d-block mx-lg-auto img-fluid" alt="Digital Creative" loading="lazy">
+                </div>
+                <div class="col-lg-7">
+                    <h4 class="fw-bold lh-2 mb-3">Advanced Digital Solutions for Your Skin Health</h4>
+                    <p>We are a digital solutions provider that focuses on skin disease detection using cutting-edge scanning technology. Using AI algorithms and the latest medical data, we provide reliable services to diagnose skin problems early.</p>
+                    <ul>
+                        <li>Fast and accurate detection of skin diseases</li>
+                        <li>Prediction of future skin disease risk for preventive measures</li>
+                        <li>A chatbot to help answer skincare-related questions</li>
+                    </ul>
+                    <p>With our technology-driven approach, we aim to provide accessible and effective skin health solutions for everyone.</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                Tentang <span>EpiAlert</span>
-              </h2>
+
+        <!-- Team -->
+        <div id="team" class="container text-center py-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="fw-bold lh-2 mb-3">OUR TEAM</h3>
+                    <p class="lead">Meet the talented professionals behind our success. Our team is dedicated to delivering the best solutions for our clients.</p>
+                </div>
             </div>
-            <p>
-              EpiAlert adalah platform inovatif yang menggunakan teknologi machine learning untuk memprediksi dan
-              mendiagnosis penyakit kulit. Kami berkomitmen untuk memberikan informasi yang akurat dan bermanfaat bagi
-              pengguna, sehingga Anda dapat mengambil langkah yang tepat untuk kesehatan kulit Anda. Dengan EpiAlert,
-              Anda tidak hanya mendapatkan prediksi yang cepat, tetapi juga pemahaman yang lebih baik tentang kondisi
-              kulit Anda.
-            </p>
-          </div>
+        
+            <div class="row text-start py-4">
+                <!-- Team Member 1 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm">
+                        <div class="card-body-team p-4 pb-0 d-flex flex-column align-items-center justify-content-center">
+                            <div class="mb-3">
+                                <img src="https://www.epialert.my.id/assets/images/mahasiswa.png" alt="Team Member 1" class="card-img-top img-fluid rounded-circle small-img">
+                            </div>
+                            <h5 class="fw-semibold">Ferry Amaludin</h5>
+                            <p class="text-muted">Machine Learning</p>
+                        </div>
+                    </div>
+                </div>                
+        
+                <!-- Team Member 2 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm">
+                        <div class="card-body-team p-4 pb-0 d-flex flex-column align-items-center justify-content-center">
+                            <div class="mb-3">
+                                <img src="https://www.epialert.my.id/assets/images/mahasiswa.png" alt="Team Member 1" class="card-img-top img-fluid rounded-circle small-img">
+                            </div>
+                            <h5 class="fw-semibold">Muhammad Ilham Abdul Mufid</h5>
+                            <p class="text-muted">Cloud Computing</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Team Member 3 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm">
+                        <div class="card-body-team p-4 pb-0 d-flex flex-column align-items-center justify-content-center">
+                            <div class="mb-3">
+                                <img src="https://www.epialert.my.id/assets/images/mahasiswa.png" alt="Team Member 1" class="card-img-top img-fluid rounded-circle small-img">
+                            </div>
+                            <h5 class="fw-semibold">Muhamad Yusuf</h5>
+                            <p class="text-muted">Mobile Development</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Team Member 4 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm">
+                        <div class="card-body-team p-4 pb-0 d-flex flex-column align-items-center justify-content-center">
+                            <div class="mb-3">
+                                <img src="https://www.epialert.my.id/assets/images/mahasiswi.png" alt="Team Member 1" class="card-img-top img-fluid rounded-circle small-img">
+                            </div>
+                            <h5 class="fw-semibold">Nurul Najwa Sabilla</h5>
+                            <p class="text-muted">Machine Learning</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Team Member 5 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm">
+                        <div class="card-body-team p-4 pb-0 d-flex flex-column align-items-center justify-content-center">
+                            <div class="mb-3">
+                                <img src="https://www.epialert.my.id/assets/images/mahasiswa.png" alt="Team Member 1" class="card-img-top img-fluid rounded-circle small-img">
+                            </div>
+                            <h5 class="fw-semibold">Tedy Hermawanto</h5>
+                            <p class="text-muted">Machine Learning</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Team Member 6 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm">
+                        <div class="card-body-team p-4 pb-0 d-flex flex-column align-items-center justify-content-center">
+                            <div class="mb-3">
+                                <img src="https://www.epialert.my.id/assets/images/mahasiswa.png" alt="Team Member 1" class="card-img-top img-fluid rounded-circle small-img">
+                            </div>
+                            <h5 class="fw-semibold">Yoga Budi Santoso</h5>
+                            <p class="text-muted">Cloud Computing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+        
 
-  <!-- end about section -->
+        <!-- Contact -->
+        <div id="contact" class="container text-center pt-4 pb-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="fw-bold lh-2 mb-3">CONTACT US</h3>
+                    <p class="lead">If you have any questions or would like to get more information, please feel free to contact us. We are ready to assist you with all your needs.</p>
+                </div>
+            </div>
 
-  <!-- team section -->
-
-  <section class="team_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Developer <span>Kami</span>
-        </h2>
-      </div>
-      <div class="carousel-wrap ">
-        <div class="owl-carousel team_carousel">
-          <div class="item">
-            <div class="box">
-              <div class="img-box">
-                <img src="assets/images/mahasiswa.png" alt="" />
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Abdul Mufid
-                </h5>
-                <h6>
-                  Cloud Computing
-                </h6>
-                <div class="social_box">
-                  <a href="">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
+            <div class="row align-items-start text-start g-5 pt-4 pb-5">
+                <div class="col-lg-7">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8105165.624902728!2d104.60517236756739!3d-7.286223384516854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7aa07ed2323237%3A0x86fe1c59d6abed60!2sPulau%20Jawa!5e0!3m2!1sid!2sid!4v1733896793555!5m2!1sid!2sid" class="rounded-4 shadow-sm" width="100%" height="410" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="box">
-              <div class="img-box">
-                <img src="assets/images/mahasiswa.png" alt="" />
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Muhammad Yusuf
-                </h5>
-                <h6>
-                  Mobile Development
-                </h6>
-                <div class="social_box">
-                  <a href="">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
+                <div class="col-lg-5">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm">
+                        <div class="card-body p-4 pb-0">
+                            <div class="d-flex py-4">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-geo-alt text-primary fs-3"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-1">Address</h5>
+                                    <p>Java Island, Indonesia</p>
+                                </div>
+                            </div>
+                            <hr class="hr-dotted mt-0">
+                            <div class="d-flex py-4">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-envelope text-primary fs-4"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-1">Email</h5>
+                                    <p>mail@epialert.my.id</p>
+                                </div>
+                            </div>
+                            <hr class="hr-dotted mt-0">
+                            <div class="d-flex py-4">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-clock text-primary fs-4"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-1">Working Hours</h5>
+                                    <p>Monday - Saturday, 09.00 AM - 16.00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="box">
-              <div class="img-box">
-                <img src="assets/images/mahasiswa.png" alt="" />
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Ferry Amaludin
-                </h5>
-                <h6>
-                  Machine Learning
-                </h6>
-                <div class="social_box">
-                  <a href="">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="box">
-              <div class="img-box">
-                <img src="assets/images/mahasiswi.png" alt="" />
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Nurul Najwa
-                </h5>
-                <h6>
-                  Machine Learning
-                </h6>
-                <div class="social_box">
-                  <a href="">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="box">
-              <div class="img-box">
-                <img src="assets/images/mahasiswa.png" alt="" />
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Yoga Budi
-                </h5>
-                <h6>
-                  Cloud Computing
-                </h6>
-                <div class="social_box">
-                  <a href="">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="box">
-              <div class="img-box">
-                <img src="assets/images/mahasiswa.png" alt="" />
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Teddy Hermawanto
-                </h5>
-                <h6>
-                  Machine Learning
-                </h6>
-                <div class="social_box">
-                  <a href="">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                  </a>
-                  <a href="">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </main>
 
-  <!-- end team section -->
-
-
-  <!-- client section -->
-  <section class="client_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          <span>Testimoni</span>
-        </h2>
-      </div>
-    </div>
-    <div class="container px-0">
-      <div id="customCarousel2" class="carousel carousel-fade" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="box">
-              <div class="client_info">
-                <div class="client_name">
-                  <h5>
-                    Morijorch
-                  </h5>
-                  <h6>
-                    Pengguna EpiAlert
-                  </h6>
+    <!-- Footer -->
+    <footer class="footer mt-auto py-4 bg-white">
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row align-items-center align-items-md-left text-body">
+                <div class="copyright text-center mb-2 mb-md-0">
+                    &copy; 2024 - <a href="https://epialert.my.id/" class="fw-bolder">EpiAlert</a>. All rights reserved.
                 </div>
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-              </div>
-              <p>
-                "EpiAlert telah membantu saya memahami kondisi kulit saya dengan lebih baik. Prediksi yang diberikan
-                sangat akurat dan bermanfaat untuk perawatan saya."
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="box">
-              <div class="client_info">
-                <div class="client_name">
-                  <h5>
-                    Rochak
-                  </h5>
-                  <h6>
-                    Pengguna EpiAlert
-                  </h6>
+                <div class="link ms-md-auto">
+                    <a href="https://epialert.my.id/">Terms & Conditions</a>
                 </div>
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-              </div>
-              <p>
-                "Saya sangat terkesan dengan EpiAlert. Informasi yang diberikan sangat membantu dalam menentukan langkah
-                selanjutnya untuk perawatan kulit saya."
-              </p>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="box">
-              <div class="client_info">
-                <div class="client_name">
-                  <h5>
-                    Brad Johns
-                  </h5>
-                  <h6>
-                    Pengguna EpiAlert
-                  </h6>
-                </div>
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-              </div>
-              <p>
-                "EpiAlert adalah alat yang luar biasa! Saya merasa lebih percaya diri dalam merawat kulit saya setelah
-                menggunakan aplikasi ini."
-              </p>
-            </div>
-          </div>
         </div>
-        <div class="carousel_btn-box">
-          <a class="carousel-control-prev" href="#customCarousel2" role="button" data-slide="prev">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-            <span class="sr-only">Sebelumnya</span>
-          </a>
-          <a class="carousel-control-next" href="#customCarousel2" role="button" data-slide="next">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            <span class="sr-only">Selanjutnya</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end client section -->
+    </footer>
 
-  <!-- contact section -->
-  <section class="contact_section layout_padding-bottom">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Hubungi Kami
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-md-7">
-          <div class="form_container">
-            <form action="">
-              <div>
-                <input type="text" placeholder="Nama Lengkap" />
-              </div>
-              <div>
-                <input type="email" placeholder="Email" />
-              </div>
-              <div>
-                <input type="text" placeholder="Nomor Handphone" />
-              </div>
-              <div>
-                <input type="text" class="message-box" placeholder="Pesan" />
-              </div>
-              <div class="btn_box">
-                <button>
-                  KIRIM
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="img-box">
-            <img src="assets/images/contact-img.png" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end contact section -->
-
-  <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://epialert.my.id/">EpiAlert Team</a>
-      </p>
-    </div>
-  </footer>
-  <!-- footer section -->
-
-  <!-- jQery -->
-  <script src="assets/js/jquery-3.4.1.min.js"></script>
-  <!-- bootstrap js -->
-  <script src="assets/js/bootstrap.js"></script>
-  <!-- nice select -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
-    integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
-  <!-- owl slider -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <!-- datepicker -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-  <!-- custom js -->
-  <script src="assets/js/custom.js"></script>
-
-
+    <!-- Popper and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
 
 </html>
