@@ -595,7 +595,7 @@ async function sendToLuminai(message, imageUrl = null) {
     let pesanbot = message
     const urlParams = new URLSearchParams(window.location.search);
     const penyakit = urlParams.get('result');
-    if (penyakit) {
+    if (penyakit && penyakit.trim() !== '') {
         pesanbot += `\n\nPerlu diingat penyakit kulit saya sekarang adalah ${penyakit}`
     }
     console.log(pesanbot)
