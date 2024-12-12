@@ -40,9 +40,9 @@ fileInput.addEventListener('change', async () => {
 
       // Buat elemen teks untuk menampilkan hasil prediksi
       const resultText = document.createElement('p');
-      if (predictionResult && predictionResult.ok) {
-        const result = await predictionResult.json();
-        resultText.textContent = `Prediksi: ${result.predicted_class}, Confidence: ${result.confidence.toFixed(2)}`;
+      if (predictionResult) {
+        const result = predictionResult;
+        resultText.textContent = `Prediksi: ${result.predicted_class}, Confidence: ${result.confidence.toFixed(0)}%`;
       } else {
         resultText.textContent = 'Gagal mendapatkan prediksi.';
       }
@@ -59,29 +59,25 @@ fileInput.addEventListener('change', async () => {
 });
 
 async function predictImage(file) {
-  const apiUrl = 'http://localhost:5000/predict';
+  const apiUrl = 'https://ml.epialert.my.id/predict';
   const formData = new FormData();
   formData.append('file', file);
 
   try {
     const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formData,
-      mode: 'no-cors', // Tambahkan mode 'no-cors' di sini
+      body: formData,  // Tidak perlu 'Content-Type', FormData menangani itu
     });
 
     if (response.ok) {
       const result = await response.json();
       return result; // Mengembalikan hasil prediksi
     } else {
-      console.error('Error:', response.statusText);
-      return response;
+      console.error('Error response:', response.status, response.statusText);
+      return null;
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Fetch error:', error);
     return null;
   }
 }
