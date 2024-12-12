@@ -1,67 +1,87 @@
 const fileInput = document.querySelector('.file-input');
-const progressArea = document.querySelector('.progress');
-const uploadedArea = document.querySelector('.uploaded');
+const wrapper = document.querySelector('.wrapper');
+const form = document.querySelector('form');
 
-document.querySelector('form').addEventListener('click', function () {
+form.addEventListener('click', function () {
   fileInput.click();
 });
 
-fileInput.addEventListener('change', () => {
-  let xhr = new XMLHttpRequest();
-  let form = new FormData();
-  let file = fileInput.files[0];
+fileInput.addEventListener('change', async () => {
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
 
-  form.append('file', file);
+    // Membaca file gambar
+    reader.onload = async function (e) {
+      // Hapus konten lama dalam wrapper (ikon dan teks)
+      wrapper.innerHTML = '';
 
-  xhr.open('POST', '/upload');
+      // Buat elemen gambar dan set sumbernya
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.alt = 'Uploaded Image';
+      img.style.width = '100%';  // Sesuaikan ukuran gambar
+      img.style.height = 'auto'; // Menjaga rasio aspek gambar
 
-  xhr.upload.addEventListener('progress', e => {
-    let percentLoaded = Math.round((e.loaded / e.total) * 100);
+      // Tambahkan gambar ke wrapper
+      wrapper.appendChild(img);
 
-    progressArea.innerHTML = `<li class="row"><i class="fas fa-file-alt"></i><div class="content"><div class="details"><span class="name">${file.name} • Uploading</span><span class="percent">${percentLoaded}%</span></div><div class="progress-bar"><div class="progress" style="width: ${percentLoaded}%"></div></div></div></li>`;
-  });
+      // Tampilkan loading sementara sebelum prediksi
+      const loadingText = document.createElement('p');
+      loadingText.textContent = 'Sedang memproses...';
+      loadingText.style.textAlign = 'center';
+      wrapper.appendChild(loadingText);
 
-  xhr.onload = function () {
-    progressArea.innerHTML = '';
-    if (xhr.status === 200) {
-      if (uploadedArea.children.length >= 3) {
-        uploadedArea.removeChild(uploadedArea.firstChild);
+      // Kirim gambar ke API untuk prediksi
+      const predictionResult = await predictImage(file);
+
+      // Hapus teks "Sedang memproses..."
+      wrapper.removeChild(loadingText);
+
+      // Buat elemen teks untuk menampilkan hasil prediksi
+      const resultText = document.createElement('p');
+      if (predictionResult && predictionResult.ok) {
+        const result = await predictionResult.json();
+        resultText.textContent = `Prediksi: ${result.predicted_class}, Confidence: ${result.confidence.toFixed(2)}`;
+      } else {
+        resultText.textContent = 'Gagal mendapatkan prediksi.';
       }
+      resultText.style.textAlign = 'center';  // Menyusun teks di tengah
+      resultText.style.marginTop = '10px';    // Memberikan sedikit jarak antara gambar dan teks
 
-      const data = JSON.parse(xhr.responseText);
+      // Tambahkan teks ke wrapper
+      wrapper.appendChild(resultText);
+    };
 
-      const li = document.createElement('li');
-      
-      li.className = 'row';
-      li.innerHTML = `<i class="fas fa-file-alt"></i>
-        <div class="content">
-          <div class="details">
-            <span class="name"><a href="${data.result.url}" target="_blank">${data.result.originalname}</a></span>
-            <span class="size">${formatFileSize(data.result.size)}</span>
-          </div>
-        </div>`;
-
-      uploadedArea.appendChild(li);
-    } else {
-      const { error } = JSON.parse(xhr.responseText);
-      uploadedArea.innerHTML = `<li class="row"><i class="fas fa-file-alt"></i><div class="content"><div class="details"><span class="name">${error}</span></div></div><i class="fas fa-times close"></i></li>`;
-    }
-  };
-
-  xhr.onerror = function () {
-    progressArea.innerHTML = '';
-    uploadedArea.innerHTML = `<li class="row"><i class="fas fa-file-alt"></i><div class="content"><div class="details"><span class="name">${file.name} • Failed</span></div></div><i class="fas fa-times close"></i></li>`;
-  };
-
-  xhr.send(form);
+    // Baca file sebagai data URL
+    reader.readAsDataURL(file);
+  }
 });
 
-function formatFileSize(bytes) {
-  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-  let index = 0;
-  while (bytes >= 1024 && index < units.length - 1) {
-    bytes /= 1024;
-    index++;
+async function predictImage(file) {
+  const apiUrl = 'http://localhost:5000/predict';
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+      mode: 'no-cors', // Tambahkan mode 'no-cors' di sini
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      return result; // Mengembalikan hasil prediksi
+    } else {
+      console.error('Error:', response.statusText);
+      return response;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
   }
-  return `${bytes.toFixed(2)} ${units[index]}`;
 }

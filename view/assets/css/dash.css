@@ -1,17 +1,9 @@
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
-}
-
-body {
+.body {
 	display: flex;
-	margin: 20px;
+	margin: 75px;
 	align-items: center;
 	justify-content: center;
-	min-height: 100vh;
-	background: #ecf0f3;
+	max-height: 100vh;
 }
 
 .wrapper {
@@ -125,16 +117,4 @@ form p {
 .content .details .size {
 	font-size: 11px;
 	color: #404040;
-}
-
-footer {
-	margin-top: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-footer p {
-	font-size: smaller;
-	color: #6990f2;
 }
