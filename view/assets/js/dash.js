@@ -117,7 +117,7 @@ fileInput.addEventListener('change', async () => {
         // Event listener untuk tombol (misalnya, mengaktifkan chatbot atau lainnya)
         button.addEventListener('click', function () {
           // Mengarahkan ke halaman /chat
-          window.location.href = `/chat?result=${predictionResult.code}`; // Atau bisa juga menggunakan window.location.assign('/chat');
+          window.location.href = `/chat?result=${predictionResult.predicted_class}`; // Atau bisa juga menggunakan window.location.assign('/chat');
         });
 
 
