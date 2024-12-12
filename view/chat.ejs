@@ -592,8 +592,15 @@ function addImagePreview(file, imageUrl) {
         // Function to send message to Luminai API
 async function sendToLuminai(message, imageUrl = null) {
     const userId = getUserId();
+    let pesanbot = message
+    const urlParams = new URLSearchParams(window.location.search);
+    const penyakit = urlParams.get('result');
+    if (penyakit) {
+        pesanbot += `\n\nPerlu diingat penyakit kulit saya sekarang adalah ${penyakit}`
+    }
+    console.log(pesanbot)
     const body = {
-        content: message,
+        content: pesanbot,
         user: userId,
         webSearchMode: false
     };
